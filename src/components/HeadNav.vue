@@ -5,10 +5,10 @@
       <router-link :to="{name: 'HomeView'}"><h1 class="app-span">豆瓣</h1></router-link>
         <nav>
           <ul>
-            <li class="app-movie" >电影</li>
-            <li class="app-book">图书</li>
-            <li class="app-broadcast">广播</li>
-            <li class="app-group">小组</li>
+            <router-link :to="{name: 'MovieView'}"><li class="app-movie" >电影</li></router-link>
+            <router-link :to="{name: 'BookView'}"><li class="app-book">图书</li></router-link>
+            <router-link :to="{name: 'BroadView'}"><li class="app-broadcast">广播</li></router-link>
+            <router-link :to="{name: 'GroupView'}"><li class="app-group">小组</li></router-link>
           </ul>
         </nav>
         <span class="talion" ></span>

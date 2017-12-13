@@ -12,12 +12,12 @@
 			<div class="author"><!-- react-text: 11 -->by&nbsp;<!-- /react-text --><span class="name">豆瓣电影</span></div>
 			<span class="feed-label">来自栏目 今晚我有空</span>
 		</a>
-		<a class="feed-item" href="">
+		<a class="feed-item"  v-for="item in list">
 			<div class="feed-content">
-				<div class="cover" style="position: relative; background: url(&quot;https://qnmob3.doubanio.com/img/files/file-1512918267.jpeg?imageView2/2/q/80/w/330/h/330/format/jpg&quot;) center center / cover no-repeat rgb(250, 250, 250);"><div style="padding-top: 100%;"></div>
+				<div class="cover"  :style="{ backgroundImage: 'url(' + item.image + ')' }"><div style="padding-top: 100%;"></div>
 			</div>
-			<h3>年度神棍片来了，猜中开头你也猜不中结局</h3>
-			<p>下班之后，睡觉以前，让好电影与你相伴。“大表姐” 詹妮弗·劳伦斯主演的《母亲》堪称年度WTF电影；高分韩剧《请回答1988》导演新作聚焦监狱题材。最值得推荐的影视内容，都在这里！</p>
+			<h3>{{item.title}}</h3>
+			<p v-html="">{{item.content}}</p>
 			</div>
 			<div class="author"><!-- react-text: 11 -->by&nbsp;<!-- /react-text --><span class="name">豆瓣电影</span></div>
 			<span class="feed-label">来自栏目 今晚我有空</span>
@@ -38,7 +38,7 @@ export default {
 	components: { SubNav},
 	data () {
 		return {
-			List:[]
+			list:[]
 		}
 	},
 	created(){
@@ -48,12 +48,12 @@ export default {
   		getList:function(){
 		const url='api/event/list?loc=108288';
 		this.$axios.get(url).then((response) => {
-			console.log(response.data)
+			//console.log(response.data)
 		// success
 		//this.myData = response.data.data;
 
-		 	this.List=response.data.events;
-		 	console.log(this.List[0])
+		 	this.list=response.data.events;
+		 	console.log(this.list)
 		}, (error) => {
 		// error
 		console.log(error)
