@@ -10,6 +10,8 @@
         		<li class="item items-movie" v-for="item in in_theaters">
         			<div class="item-poster" :style="{ backgroundImage: 'url(' + item.images.small + ')' }"></div>
         			<span class="item-title">{{item.title}}</span>
+        			<el-rate v-model="value5" disabled show-score text-color="#ff9900" :score-template="''+item.rating.average">
+        			</el-rate>
         		</li>
         	</ul>
         </div>
@@ -39,22 +41,6 @@
         			<div class="item-poster" :style="{ backgroundImage: 'url(' + item.images.small + ')' }"></div>
         			<span class="item-title">{{item.title}}</span>
         		</li>
-        		<!-- <li class="item items-movie">
-        			<div class="item-poster" style="background-image: url(https://img3.doubanio.com/view/event_poster/median/public/131875877d7f285.jpg)"></div>
-        			<span class="item-title">寻梦环游记</span>
-        		</li>
-        		<li class="item items-movie">
-        			<div class="item-poster" style="background-image: url(https://img3.doubanio.com/view/event_poster/median/public/131875877d7f285.jpg)"></div>
-        			<span class="item-title">寻梦环游记</span>
-        		</li>
-        		<li class="item items-movie">
-        			<div class="item-poster" style="background-image: url(https://img3.doubanio.com/view/event_poster/median/public/131875877d7f285.jpg)"></div>
-        			<span class="item-title">寻梦环游记</span>
-        		</li>
-        		<li class="item items-movie">
-        			<div class="item-poster" style="background-image: url(https://img3.doubanio.com/view/event_poster/median/public/131875877d7f285.jpg)"></div>
-        			<span class="item-title">寻梦环游记</span>
-        		</li> -->
         	</ul>
         </div>
     </section>
@@ -70,26 +56,28 @@ export default {
 	data () {
 		return {
 			in_theaters:[],
-			comingList:[]
+			comingList:[],
+			value5:9.1,
 		}
 	},
 	created(){
 		this.getList();
 		this.getNewMovies();
 	},
+	computed: {
+    // 一个计算属性的 getter
+	    value5(){
+	    	alert(3);
+	    }
+  	},
   	methods:{
   		getList:function(){
 		const url='api/movie/in_theaters';
 		this.$axios.get(url).then((response) => {
-			//console.log(response.data.subjects)
-		// success
-		//this.myData = response.data.data;
-
 		 	this.in_theaters=response.data.subjects;
-		 	//console.log(this.in_theaters)
+		 	console.log(this.in_theaters);
 		}, (error) => {
-		// error
-		console.log(error)
+			console.log(error)
 		});
     	},
 	  	getNewMovies:function(){
@@ -105,7 +93,7 @@ export default {
 		// error
 		console.log(error)
 		});
-	  	} 
+	  	}, 
     }
 }
 </script>
@@ -138,7 +126,7 @@ section header a{
     float: right
 }
 
-section:first-child {
+section {
     padding-top: 10px;
 }
 
@@ -160,7 +148,7 @@ ul{
 
 .row {
     border-bottom: 1px solid #F2F2F2;
-    padding: 15px 0 43px 0;
+    padding: 15px 0 33px 0;
 }
 .items {
     font-size: 0;
@@ -204,4 +192,33 @@ ul{
     line-height: .94rem;
 }
 
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+} 
+
+.el-rate__icon {
+    font-size: 14px;
+    margin-right: 2px;
+    color: #c0c4cc;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+.el-rate__text {
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+
+.el-rate {
+	padding-top: 5px;
+    height: 20px;
+    line-height: 1;
+}
 </style>
